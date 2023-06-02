@@ -93,7 +93,7 @@ static void debug_hunter_planner()
 
 int main(int /*argc*/, const char ** /*argv*/)
 {
-  debug_looter_planner();
+  debug_hunter_planner();
 
   return 0;
 }
