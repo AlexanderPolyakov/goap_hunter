@@ -13,23 +13,24 @@ a world state.
 Without action which allows to destroy either operator or comms the plan is as follows
 to achieve 5 destroyed SAMs:
 
-               : |enemy_vis||has_comms||has_operator||perm_req||has_perm||num_destr|
-               : |        0||        1||           1||       0||       0||        0|
-         patrol: |        1||        1||           1||       0||       0||        0|
- req_permission: |        1||        1||           1||       0||       1||        0|
-    destroy_sam: |        0||        1||           1||       0||       1||        1|
-         patrol: |        1||        1||           1||       0||       0||        1|
- req_permission: |        1||        1||           1||       0||       1||        1|
-    destroy_sam: |        0||        1||           1||       0||       1||        2|
-         patrol: |        1||        1||           1||       0||       0||        2|
- req_permission: |        1||        1||           1||       0||       1||        2|
-    destroy_sam: |        0||        1||           1||       0||       1||        3|
-         patrol: |        1||        1||           1||       0||       0||        3|
- req_permission: |        1||        1||           1||       0||       1||        3|
-    destroy_sam: |        0||        1||           1||       0||       1||        4|
-         patrol: |        1||        1||           1||       0||       0||        4|
- req_permission: |        1||        1||           1||       0||       1||        4|
-    destroy_sam: |        0||        1||           1||       0||       1||        5|
+|                   : |enemy_vis|has_comms|has_operator|perm_req|has_perm|num_destr|
+|---------------------|---------|---------|------------|--------|--------|---------|
+|                   : |        0|        1|           1|       0|       0|        0|
+|             patrol: |        1|        1|           1|       0|       0|        0|
+|     req_permission: |        1|        1|           1|       0|       1|        0|
+|        destroy_sam: |        0|        1|           1|       0|       1|        1|
+|             patrol: |        1|        1|           1|       0|       0|        1|
+|     req_permission: |        1|        1|           1|       0|       1|        1|
+|        destroy_sam: |        0|        1|           1|       0|       1|        2|
+|             patrol: |        1|        1|           1|       0|       0|        2|
+|     req_permission: |        1|        1|           1|       0|       1|        2|
+|        destroy_sam: |        0|        1|           1|       0|       1|        3|
+|             patrol: |        1|        1|           1|       0|       0|        3|
+|     req_permission: |        1|        1|           1|       0|       1|        3|
+|        destroy_sam: |        0|        1|           1|       0|       1|        4|
+|             patrol: |        1|        1|           1|       0|       0|        4|
+|     req_permission: |        1|        1|           1|       0|       1|        4|
+|        destroy_sam: |        0|        1|           1|       0|       1|        5|
 
 ## Dangerous behavior
 
@@ -37,19 +38,20 @@ After adding option to destroy operator or comms this behavior emerges, as it le
 a shorter plan. Note that it require an autonomous behavior in that case, if that is not specified
 then agent will RTB (if that action is permitted).
 
-                         : |enemy_vis||has_comms||has_operator||perm_req||has_perm||num_destr|
-                         : |        0||        1||           1||       0||       0||        0|
-                   patrol: |        1||        1||           1||       0||       0||        0|
-         destroy_operator: |        1||        1||           0||       0||       0||        0|
-      destroy_no_operator: |        0||        1||           0||       0||       0||        1|
-                   patrol: |        1||        1||           0||       0||       0||        1|
-      destroy_no_operator: |        0||        1||           0||       0||       0||        2|
-                   patrol: |        1||        1||           0||       0||       0||        2|
-      destroy_no_operator: |        0||        1||           0||       0||       0||        3|
-                   patrol: |        1||        1||           0||       0||       0||        3|
-      destroy_no_operator: |        0||        1||           0||       0||       0||        4|
-                   patrol: |        1||        1||           0||       0||       0||        4|
-      destroy_no_operator: |        0||        1||           0||       0||       0||        5|
+|                         : |enemy_vis|has_comms|has_operator|perm_req|has_perm|num_destr|
+|---------------------------|---------|---------|------------|--------|--------|---------|
+|                         : |        0|        1|           1|       0|       0|        0|
+|                   patrol: |        1|        1|           1|       0|       0|        0|
+|         destroy_operator: |        1|        1|           0|       0|       0|        0|
+|      destroy_no_operator: |        0|        1|           0|       0|       0|        1|
+|                   patrol: |        1|        1|           0|       0|       0|        1|
+|      destroy_no_operator: |        0|        1|           0|       0|       0|        2|
+|                   patrol: |        1|        1|           0|       0|       0|        2|
+|      destroy_no_operator: |        0|        1|           0|       0|       0|        3|
+|                   patrol: |        1|        1|           0|       0|       0|        3|
+|      destroy_no_operator: |        0|        1|           0|       0|       0|        4|
+|                   patrol: |        1|        1|           0|       0|       0|        4|
+|      destroy_no_operator: |        0|        1|           0|       0|       0|        5|
 
 ## Note
 
