@@ -84,7 +84,7 @@ float goap::make_plan(const Planner &planner, const WorldState &from, const Worl
 
 void goap::print_plan(const Planner &planner, const WorldState &init, const std::vector<PlanStep> &plan)
 {
-  printf("%15s: ", "");
+  printf("%25s: ", "");
   std::vector<int> dlen;
   for (size_t i = 0; i < planner.wdesc.size(); ++i)
   {
@@ -100,13 +100,13 @@ void goap::print_plan(const Planner &planner, const WorldState &init, const std:
     }
   }
   printf("\n");
-  printf("%15s: ", "");
+  printf("%25s: ", "");
   for (size_t i = 0; i < init.size(); ++i)
     printf("|%*d|", dlen[i], init[i]);
   printf("\n");
   for (const PlanStep &step : plan)
   {
-    printf("%15s: ", planner.actions[step.action].name.c_str());
+    printf("%25s: ", planner.actions[step.action].name.c_str());
     for (size_t i = 0; i < step.worldState.size(); ++i)
       printf("|%*d|", dlen[i], step.worldState[i]);
     printf("\n");

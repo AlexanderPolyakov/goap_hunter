@@ -6,82 +6,61 @@ static void debug_hunter_planner()
 {
   goap::Planner pl = goap::create_planner();
 
+  // DECLARE STATES
   goap::add_states_to_planner(pl,
       {"enemy_vis",
        "has_comms",
        "has_operator",
        "perm_req",
+       "has_perm",
        "num_destr"});
 
+  // ACTIONS
   goap::add_action_to_planner(pl, "patrol", 1,
       {{"enemy_vis", 0}},
-      {{"enemy_vis", 1}},
+      {{"enemy_vis", 1}, {"has_perm", 0}},
       {});
 
   goap::add_action_to_planner(pl, "req_permission", 1,
       {{"enemy_vis", 1}, {"has_comms", 1}, {"has_operator", 1}},
-      {{"enemy_vis", 1}},
+      {{"has_perm", 1}},
       {});
 
-  /*
-  goap::add_action_to_planner(pl, "open_room", 1,
-      {{"health_state", Healthy}},
-      {{"enemy_vis", 1}, {"loot_vis", 1}, {"enemy_dist", 2}},
-      {});
-
-  goap::add_action_to_planner(pl, "loot", 1,
-      {{"health_state", Healthy}, {"loot_vis", 1}, {"enemy_vis", 0}},
-      {{"loot_vis", 0}},
-      {{"num_loot", +1}});
-
-  goap::add_action_to_planner(pl, "approach_enemy", 1,
-      {{"health_state", Healthy}, {"enemy_vis", 1}},
-      {},
-      {{"enemy_dist", -1}});
-
-  goap::add_action_to_planner(pl, "flee_enemy", 1,
-      {{"health_state", Healthy}, {"enemy_vis", 1}},
-      {},
-      {{"enemy_dist", +1}});
-
-  goap::add_action_to_planner(pl, "find_melee", 1,
-      {{"have_melee", 0}, {"health_state", Healthy}},
-      {{"have_melee", 1}},
-      {});
-
-  goap::add_action_to_planner(pl, "find_ranged", 1,
-      {{"have_ranged", 0}, {"health_state", Healthy}},
-      {{"have_ranged", 1}},
-      {});
-
-  goap::add_action_to_planner(pl, "patch_up", 1,
-      {{"health_state", Injured}},
-      {},
-      {{"health_state", +1}});
-
-  goap::add_action_to_planner(pl, "attack_enemy", 1,
-      {{"enemy_vis", 1}, {"have_melee", 1}, {"enemy_dist", DistMelee}, {"health_state", Healthy}},
+  goap::add_action_to_planner(pl, "destroy_sam", 1,
+      {{"enemy_vis", 1}, {"has_perm", 1}},
       {{"enemy_vis", 0}},
-      {{"health_state", -1}});
+      {{"num_destr", 1}});
 
-  goap::add_action_to_planner(pl, "shoot_enemy", 5,
-      {{"enemy_vis", 1}, {"have_ranged", 1}, {"enemy_dist", DistRanged}, {"health_state", Healthy}},
-      {{"enemy_vis", 0}},
-      {{"health_state", -1}});
-
-  goap::add_action_to_planner(pl, "escape", 1,
-      {{"health_state", Healthy}, {"num_loot", 5}},
-      {{"escaped", 1}},
+  goap::add_action_to_planner(pl, "destroy_operator", 1,
+      {{"has_operator", 1}},
+      {{"has_operator", 0}},
       {});
-      */
 
+  goap::add_action_to_planner(pl, "destroy_comms", 1,
+      {{"has_comms", 1}},
+      {{"has_comms", 0}},
+      {});
+
+  goap::add_action_to_planner(pl, "destroy_no_comms", 1,
+      {{"enemy_vis", 1}, {"has_comms", 0}},
+      {{"enemy_vis", 0}},
+      {{"num_destr", 1}});
+
+  goap::add_action_to_planner(pl, "destroy_no_operator", 1,
+      {{"enemy_vis", 1}, {"has_operator", 0}},
+      {{"enemy_vis", 0}},
+      {{"num_destr", 1}});
+
+  // INITIAL STATE
   goap::WorldState ws = goap::produce_planner_worldstate(pl,
       {{"enemy_vis", 0},
        {"has_comms", 1},
-       {"has_operator", 0},
+       {"has_operator", 1},
        {"perm_req", 0},
+       {"has_perm", 0},
        {"num_destr", 0}});
 
+  // TARGET STATE
   goap::WorldState goal = goap::produce_planner_worldstate(pl,
       {{"num_destr", 5}});
 
